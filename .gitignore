@@ -1,0 +1,5 @@
+Route/x64
+Debug/
+.vs/
+*.filters
+*.user
