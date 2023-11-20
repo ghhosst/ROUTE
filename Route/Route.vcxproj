@@ -119,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,10 +129,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Element.cpp" />
+    <ClCompile Include="getString.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ROUTE.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Element.h" />
+    <ClInclude Include="getString.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="ROUTE.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

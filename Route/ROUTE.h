@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include "getString.h"
 
 class ROUTE{
 private:
