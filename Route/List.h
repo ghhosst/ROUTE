@@ -1,5 +1,6 @@
 #pragma once
 #include "Element.h"
+#include "compare.h"
 
 class List {
 private:
@@ -23,5 +24,9 @@ public:
 	void Show();
 	void ShowOnlyOne();
 	void Change();
-	//void Delete();
+	void Delete();
+
+	void Insert(int NumberRouteForCopy, Element& _element);
+	void Sorting();
+	void Clear(List* _copyList);
 };

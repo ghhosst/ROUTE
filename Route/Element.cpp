@@ -22,14 +22,10 @@ Element::Element() {
 	InformationROUTE = new ROUTE;
 }
 
-Element::Element(int NumRoute) {
+Element::Element(int NumberRouteForCopy, Element& _element) { 
 	std::cout << "\n------|Вызван конструктор класса Element (с параметром)|------\n";
 	system("pause");
-
-	Next = nullptr;
-	Prev = nullptr;
-	InformationROUTE = nullptr;
-	this->NumRoute = NumRoute;
+	InformationROUTE = new ROUTE(NumberRouteForCopy, *_element.GetInformationROUTE());  
 }
 
 Element::Element(const Element& other) {

@@ -35,15 +35,52 @@ List::List(const List& other) {
 	std::cout << "\n------|Вызван конструктор класса List (копирования)|------\n";
 	system("pause");
 
-	this->Head = other.Head;
-	this->Tail = other.Tail;
-	this->Index = other.Index;
+	this->Head = nullptr;
+	this->Tail = nullptr;
+	this->Index = nullptr;
+
+	if (other.Tail == nullptr)
+		return;
+
+	Element* firstElement = new Element();
+	this->Head = firstElement;
+	Element* newRear_tmp = firstElement;
+
+	Element* rear_tmp = other.Head->GetNext(); 
+	while (rear_tmp != nullptr) {
+		Element* element = new Element();
+		this->Tail = element;
+		element->SetPrev(newRear_tmp);
+		newRear_tmp->SetNext(element);
+		newRear_tmp = newRear_tmp->GetNext();
+
+		rear_tmp = rear_tmp->GetNext();
+	}
+
+	Index = Head;
 }
 
 List::~List() {
 	std::cout << "\n------|Вызван деструктор класса List|------\n";
 	system("pause");
 
+	while (Index != nullptr) {
+		if (Index == nullptr) {
+			return;
+		}
+
+		if (Index == Tail) {
+			delete Tail;
+			Index = nullptr;
+			Tail = nullptr;
+			Head = nullptr;
+			return;
+		}
+
+		Element* tmp_element = Index;
+		Index = tmp_element->GetNext();
+		delete tmp_element;
+	}
 }
 
 void List::Insert() {
@@ -59,9 +96,40 @@ void List::Insert() {
 	Tail = element;
 }
 
+void List::Insert(int NumberRouteForCopy, Element& _element) {
+	Element* element = new Element(NumberRouteForCopy, _element);  
+
+	element->SetPrev(Tail);
+	if (Head == nullptr) { // list empty
+		Head = element;
+		Index = element;
+	}
+	if (Tail != nullptr)
+		Tail->SetNext(element);
+	Tail = element;
+}
+
 void List::Show() {
 	if (Tail == nullptr)
 		return;
+
+	bool notSorting = true;
+
+	while (Index != nullptr) {
+		if (Index->GetNext() == nullptr)
+			break;
+		if ((Index->GetInformationROUTE())->GetNumberRoute() < ((Index->GetNext())->GetInformationROUTE())->GetNumberRoute())
+			notSorting = false;
+		else {
+			notSorting = true;
+			break;
+		}
+		Index = Index->GetNext();
+	}
+	Index = Head;
+
+	if (notSorting)
+		Sorting();
 
 	system("cls");
 	while (Index != nullptr) {
@@ -113,7 +181,8 @@ void List::Change() {
 	cout << "\n\nНомер маршрута: " << (Index->GetInformationROUTE())->GetNumberRoute();
 	cout << "\nНачальный пункт: " << (Index->GetInformationROUTE())->GetNameStart();
 	cout << "\nКонечный пункт: " << (Index->GetInformationROUTE())->GetNameFinish();
-	Index = Head;
+	
+
 	cout << "\n\nВыберете пункт, который хотите изменить..." << endl
 		<< "1) Номер маршрута" << endl
 		<< "2) Начальный пункт" << endl
@@ -139,4 +208,101 @@ void List::Change() {
 		system("pause");
 		break;
 	}
+	Index = Head;
+}
+
+void List::Delete() {
+	if (Tail == nullptr)
+		return;
+
+	int cnt = 1;
+	int choiceDelete;
+	Show();
+	cout << "\n\n\nВведите номер маршрута, который хотите удалить: ";
+	cin >> choiceDelete;
+
+
+
+	while ((Index->GetInformationROUTE()->GetNumberRoute()) != choiceDelete) {
+		Index = Index->GetNext();
+	}
+
+	if (Head == Tail) {
+		Head = nullptr;
+		Tail = nullptr;
+		delete Index;
+		Index = nullptr;
+		return;
+	}
+	else {
+		if (Index == Tail) {
+			Tail = Index->GetPrev();
+			Tail->SetNext(nullptr);
+			delete Index;
+			Index = Tail;
+		}
+		else {
+			if (Index == Head) {
+				Head = Index->GetNext();
+				Head->SetPrev(nullptr);
+				delete Index;
+				Index = Head;
+			}
+			else {
+				(Index->GetPrev())->SetNext(Index->GetNext());
+				(Index->GetNext())->SetPrev(Index->GetPrev());
+				delete Index;
+				Index = Head;
+			}
+		}
+	}
+	Index = Head;
+}
+
+void List::Sorting() {
+	List CopyList;
+
+	int lenList = 0;
+	while (Index != nullptr) {
+		lenList++;
+		Index = Index->GetNext();
+	}
+	Index = Head;
+	int* arrNumbersRoute = new int[lenList];
+	int cnt = 0;
+	while (Index != nullptr) {
+		arrNumbersRoute[cnt] = (Index->GetInformationROUTE())->GetNumberRoute();
+		cnt++;
+		Index = Index->GetNext();
+	}
+	Index = Head;
+	qsort(arrNumbersRoute, lenList, sizeof(int), compare);
+
+	cnt = 0;
+	while (cnt < lenList) {
+		while ((Index->GetInformationROUTE())->GetNumberRoute() != arrNumbersRoute[cnt]) {
+			Index = Index->GetNext();
+		}
+		CopyList.Insert(arrNumbersRoute[cnt], *Index); 
+		Index = Head;
+		cnt++;
+	}
+	Clear(&CopyList);
+}
+
+void List::Clear(List* _copyList) {
+	while (Index != nullptr) {
+		delete Index->GetInformationROUTE();
+		Index = Index->GetNext();
+	}
+	Index = Head;
+	
+	while (Index != nullptr) {
+		ROUTE* newInformationRoute = new ROUTE(0); 
+		newInformationRoute = (_copyList->Index)->GetInformationROUTE();
+		Index->SetInformationROUTE(newInformationRoute);
+		_copyList->Index = (_copyList->Index)->GetNext();
+		Index = Index->GetNext();
+	}
+	Index = Head;
 }

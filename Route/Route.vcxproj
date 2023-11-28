@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="compare.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="getString.cpp" />
     <ClCompile Include="List.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="ROUTE.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="compare.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="getString.h" />
     <ClInclude Include="List.h" />

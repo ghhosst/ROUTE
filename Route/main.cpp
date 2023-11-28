@@ -48,7 +48,7 @@ int main() {
 					TheList.Change();
 					break;
 				case 5:
-
+					TheList.Delete();
 					break;
 				case 6:
 					break;
