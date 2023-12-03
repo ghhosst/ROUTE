@@ -1,6 +1,7 @@
 #pragma once
 #include "Element.h"
 #include "compare.h"
+#include "MyException.h"
 
 class List {
 private:
@@ -24,9 +25,7 @@ public:
 	void Show();
 	void ShowOnlyOne();
 	void Change();
-	void Delete();
+	void operator !();
 
-	void Insert(int NumberRouteForCopy, Element& _element);
 	void Sorting();
-	void Clear(List* _copyList);
 };

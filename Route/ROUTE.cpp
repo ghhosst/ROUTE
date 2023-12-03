@@ -29,24 +29,19 @@ ROUTE::ROUTE() {
 	SetNameFinish(getString(&len)); 
 }
 
-ROUTE::ROUTE(int NumberRouteForCopy, ROUTE& _route) { 
-	cout << "\n------|Вызван конструктор класса ROUTE (с параметрами)|------\n";
+
+ROUTE::ROUTE(int NumberRoute) {
+	cout << "\n------|Вызван конструктор класса ROUTE (с параметром NumberRoute)|------\n";
 	system("pause");
 
-	NameStart = new char[sizeof(_route.NameStart)];
-	strcpy(NameStart, _route.NameStart);
-	NameFinish = new char[sizeof(_route.NameFinish)];
-	strcpy(NameFinish, _route.NameFinish);  
-	NumberRoute = NumberRouteForCopy;  
-}
-
-ROUTE::ROUTE(int p) {
-	cout << "\n------|Вызван конструктор класса ROUTE (с параметром p)|------\n";
-	system("pause");
-
-	NameStart = nullptr;
-	NameFinish = nullptr;
-	NumberRoute = 0;
+	int len;
+	system("cls");
+	cout << "Введите номер маршрута: " << NumberRoute << endl;
+	SetNumberRoute(NumberRoute);
+	cout << "\nВведите начальный пункт маршрута: ";
+	SetNameStart(getString(&len));
+	cout << "\nВведите конечный пункт маршрута: ";
+	SetNameFinish(getString(&len));
 }
 
 ROUTE::ROUTE(const ROUTE& other) {

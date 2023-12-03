@@ -11,7 +11,7 @@ private:
 	int NumRoute;
 public:
 	Element();
-	Element(int NumberRouteForCopy, Element& _element);  
+	Element(int NumberRoute);  
 	Element(const Element& other);
 	~Element();
 

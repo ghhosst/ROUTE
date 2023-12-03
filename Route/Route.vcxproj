@@ -129,19 +129,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="compare.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="getString.cpp" />
+    <ClCompile Include="isVowel.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyException.cpp" />
     <ClCompile Include="ROUTE.cpp" />
+    <ClCompile Include="Words.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="compare.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="getString.h" />
+    <ClInclude Include="isVowel.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="MyException.h" />
     <ClInclude Include="ROUTE.h" />
+    <ClInclude Include="Words.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
